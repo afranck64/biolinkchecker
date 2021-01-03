@@ -1,0 +1,6 @@
+tweepy==3.10.0
+sqlalchemy
+python-dotenv
+joblib
+requests
+click

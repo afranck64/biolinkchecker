@@ -5,7 +5,6 @@ echo "Configure cron jobs"
 LOG_FILE="/code/logs/cron.log"
 WORKING_DIR="/code/bot/"
 COMMAND_LOCK="/usr/bin/flock -n /code/bot/"
-COMMAND_LOCK=
 BASE_COMMAND="/usr/local/bin/python -m bot.main"
 FULL_COMMAND="cd $WORKING_DIR && $COMMAND_LOCK $BASE_COMMAND"
 echo " Fetch schedule: $CRON_SCHEDULE_FETCH $FULL_COMMAND"

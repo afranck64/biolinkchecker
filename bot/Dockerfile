@@ -16,6 +16,7 @@ ENV CRON_SCHEDULE_NOTIFY "30 */4 */1 * *"
 ENV CRON_SCHEDULE_CHECK_NOTIFY "15 */4 */1 * *"
 ENV CHECK_NOTIFY 1
 ENV SQLALCHEMY_DATABASE_URI "sqlite://"
+ENV LINKS_TTL 172800
 
 # Run the command on container startup
 CMD [sh /code/bot/entrypoint.sh]

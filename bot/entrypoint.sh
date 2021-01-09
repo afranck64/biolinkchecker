@@ -18,7 +18,7 @@ BASE_CRONTAB="/tmp/crontab"
 echo "#Crontab" > $BASE_CRONTAB
 crontab $BASE_CRONTAB
 
-(crontab -l ; echo "$CRON_SCHEDULE_FETCH $FULL_COMMAND fetch 2>&1 >> $LOG_FILE ") | crontab
+(crontab -l ; echo "$CRON_SCHEDULE_FETCH $FULL_COMMAND fetch --prune 2>&1 >> $LOG_FILE ") | crontab
 if [ "$CHECK_NOTIFY" ]
 then
     echo "Separate check and notify"

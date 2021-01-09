@@ -9,10 +9,16 @@ from tweepy import OAuthHandler
 from dotenv import load_dotenv
 load_dotenv()
 
+def get_env_int(key, default=0):
+    try:
+        return int(os.getenv(key))
+    except Exception:
+        return default
 
 VALID_STATUS_CODES = set(range(200, 300)) | {429}
 RETRY_WITH_GET_STATUS_CODES = set(range(400, 500))
 REQUEST_HEADERS = {'User-agent': 'biolinkchecker 0.0.1dev'}
+LINKS_TTL = get_env_int('LINKS_TTL', 3600*48)
 
 TWITTER_CONSUMER_KEY = os.getenv('TWITTER_CONSUMER_KEY')
 TWITTER_CONSUMER_SECRET = os.getenv('TWITTER_CONSUMER_SECRET')

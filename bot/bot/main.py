@@ -9,15 +9,18 @@ import datetime
 
 from .config import check_config, get_fake_followers
 from .models import create_all
-from .utils import check_links_and_update, fetch_accounts_and_links, get_followers_generator, send_offline_links_notifications
+from .utils import check_links_and_update, prune_orphan_links, fetch_accounts_and_links, get_followers_generator, send_offline_links_notifications
 
 
 
 @click.command(help='Fetch links from Twitter user bio')
-def fetch():
+@click.option("--prune", is_flag=True, help="Prune orphan links (no more present in user bio)")
+def fetch(prune:bool):
     print(f"fetch - {datetime.datetime.now()}")
     fetch_accounts_and_links(get_fake_followers())
     fetch_accounts_and_links(get_followers_generator())
+    if prune:
+        prune_orphan_links()
     print(f"done fetch - {datetime.datetime.now()}")
 
 @click.command(help='Check which of the fetched links are online/offline')

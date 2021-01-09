@@ -15,7 +15,7 @@ from tweepy.models import User
 from dotenv import load_dotenv
 import joblib
 load_dotenv()
-from .config import REQUEST_HEADERS, RETRY_WITH_GET_STATUS_CODES, VALID_STATUS_CODES, get_api
+from .config import LINKS_TTL, REQUEST_HEADERS, RETRY_WITH_GET_STATUS_CODES, VALID_STATUS_CODES, get_api
 from .models import Account, Link, get_session
 
 
@@ -147,4 +147,10 @@ def send_offline_links_notifications():
             {Link.online_status_changed.name:False},
             synchronize_session=False
         )
+    session.commit()
+
+def prune_orphan_links(orphan_delay=LINKS_TTL):
+    session = get_session()
+    threshold = datetime.datetime.now() - datetime.timedelta(seconds=LINKS_TTL)
+    session.query(Link).filter(Link.last_set_from_account_on<=threshold).delete()
     session.commit()

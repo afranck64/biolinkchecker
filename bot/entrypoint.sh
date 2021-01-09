@@ -19,7 +19,7 @@ echo "#Crontab" > $BASE_CRONTAB
 crontab $BASE_CRONTAB
 
 (crontab -l ; echo "$CRON_SCHEDULE_FETCH $FULL_COMMAND fetch --prune 2>&1 >> $LOG_FILE ") | crontab
-if [ "$CHECK_NOTIFY" ]
+if [ -z "${CHECK_NOTIFY}" ]
 then
     echo "Separate check and notify"
     (crontab -l ; echo "$CRON_SCHEDULE_CHECK $FULL_COMMAND check 2>&1 >> $LOG_FILE ") | crontab

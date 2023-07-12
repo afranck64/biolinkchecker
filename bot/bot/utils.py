@@ -122,9 +122,11 @@ def send_offline_links_notifications_single():
     link:Link
     for link in session.query(Link).filter(Link.is_online==False, Link.online_status_changed==True):
         text = f"""
-        Hello, the following link on your bio seems to be offline:
+        Hello, the following link on your bio seems to have been offline/unreachable at {link.last_checked_on}:
         {link.url}
-        Best regards"""
+
+        Best regards
+        @biolinkchecker"""
         api.send_direct_message(link.account_id, text)
         link.online_status_changed = False
         session.add(link)
